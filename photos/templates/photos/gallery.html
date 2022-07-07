@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Албум</title>
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <style>
+        .image-thumbnail{
+            height: 200px;
+        }
+    </style>    
+    </head>
+    <body class="m-5">
+        <a href="{% url 'register' %}" class="btn btn-dark my-3">Register</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                          Категории
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <a href="{% url 'gallery' %}">Всички</a>
+                          </li>
+                          {% for category in categories %}
+                          <li class="list-group-item">
+                            <a href="{% url 'gallery' %}?category={{category.name}}">
+                                {{category.name}}
+                            </a>
+                          </li>
+                          {% endfor %}
+                            <a href="{% url 'add' %}" class="btn btn-dark btn-block btn-sm m-1">Добавяне на снимка</a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        {% for photo in photos %}
+                        <div class="col-md-4">
+                            <div class="card my-2">
+                                <img class="image-thumbnail" 
+                                src="{{photo.image.url}}" 
+                                alt="Card image cap">
+                                <div class="card-body">
+                                  <small> Категория: {{photo.category.name}}</small>
+                                </div>
+                                <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">Виж</a>
+                            </div>
+                        </div> 
+                        {% empty %}
+                        <h3>Няма снимки в тази категория</h3> 
+                        {% endfor %}                     
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </body>
+</html>
