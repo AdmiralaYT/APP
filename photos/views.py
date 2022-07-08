@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 
 def gallery(request):
+
     category = request.GET.get('category')
     if category == None:
         photos = Photo.objects.all()
@@ -18,10 +19,11 @@ def viewPhoto(request, pk):
     return render(request, 'photos/photo.html', {'photo': photo})
 
 def addPhoto(request):
-    categories = Category.objects.all()
+    categories = Category.objects.filter(user = request.user)
     if request.method == 'POST':
         data = request.POST
         image = request.FILES.get('image')
+
         if data['category'] != 'none':
             category = Category.objects.get(id=data['category'])
         elif data['category_new'] != '':
@@ -88,6 +90,13 @@ def login(request):
 
     else:
         return render(request, 'photos/login.html')
+
+def loggeduser(request):
+    user = ['username']
+    if user is not None:
+        return render(request, 'gallery.html', {'name' : request.username })
+    else:
+        return render(request, 'gallery.html', {'not logged'})
 
 
 
