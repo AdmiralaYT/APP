@@ -41,11 +41,13 @@
                             <a href="{% url 'gallery' %}">Всички</a>
                           </li>
                           {% for category in categories %}
+                          {% if request.user.is_authenticated %}
                           <li class="list-group-item">
                             <a href="{% url 'gallery' %}?category={{category.name}}">
                                 {{category.name}}
                             </a>
                           </li>
+                          {% endif %}
                           {% endfor %}
                             <a href="{% url 'add' %}" class="btn btn-dark btn-block btn-sm m-1">Добавяне на снимка</a>
                         </ul>
@@ -54,6 +56,7 @@
                 <div class="col-md-9">
                     <div class="row">
                         {% for photo in photos %}
+                        {% if request.user.is_authenticated %} 
                         <div class="col-md-4">
                             <div class="card my-2">
                                 <img class="image-thumbnail" 
@@ -64,7 +67,9 @@
                                 </div>
                                 <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">Виж</a>
                             </div>
-                        </div> 
+                        </div>
+                        {% else %}
+                        {% endif %}
                         {% empty %}
                         <h3>Няма снимки в тази категория</h3> 
                         {% endfor %}                     

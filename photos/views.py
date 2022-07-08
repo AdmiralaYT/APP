@@ -28,13 +28,13 @@ def addPhoto(request):
             category = Category.objects.get(id=data['category'])
         elif data['category_new'] != '':
             category, created = Category.objects.get_or_create(
-                name=data['category_new'])
+                name=data['category_new'], user=request.user)
         else: 
             category = None
         photo = Photo.objects.create(
             category=category,
             description=data['description'],
-            image=image,
+            image=image,user=request.user
         )
         return redirect('gallery')
     context = {'categories': categories}
@@ -102,6 +102,6 @@ def loggeduser(request):
 
 def logout_user(request):
     auth.logout(request)
-    return redirect('gallery')
+    return redirect('login')
 
 
