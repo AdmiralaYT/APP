@@ -15,7 +15,7 @@
 
 <body>
 	<form method="POST" action="/register" class="form-horizontal">
-		<input type="hidden" name="csrf-token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" />
+		{% csrf_token %}
 		<div class="mx-auto" style="width: 400px;">
 
 			<div class="col-xs-8 col-xs-offset-4">
