@@ -19,16 +19,14 @@
         }
     </style>    
     </head>
+    {% if request.user.is_authenticated %}
     <body class="m-5">
     {% if request.user.is_authenticated %}
         <p>Hello {{request.user}}</p>
         <a href="{% url 'logout_user' %}" class="btn btn-dark btn-block btn-sm m-1">Logout</a>
     {% else %}
         <a href="{% url 'register' %}" class="btn btn-dark my-3">Влизане в акаунт</a>
-    {% endif %}
-        
-        
-        
+    {% endif %}        
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -78,4 +76,16 @@
             </div>    
         </div>
     </body>
+    {% else %}
+    <div style=
+    "margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);" >
+        <a href="{% url 'login' %}"
+        class="btn btn-dark btn-block m-1">Влизане в акаунт</a>
+    </div>
+    {% endif %}
 </html>
